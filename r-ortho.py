@@ -11,7 +11,6 @@ import O4_Vector_Map as VMAP
 import O4_Mesh_Utils as MESH
 import O4_Mask_Utils as MASK
 import O4_Tile_Utils as TILE
-import O4_GUI_Utils as GUI
 import O4_Config_Utils as CFG  # CFG imported last because it can modify other modules variables
 
 
@@ -35,41 +34,34 @@ if __name__ == '__main__':
     IMG.initialize_color_filters_dict()
     IMG.initialize_providers_dict()
     IMG.initialize_combined_providers_dict()
-    if len(sys.argv)==1: # switch to the graphical interface
-        Ortho4XP = GUI.Ortho4XP_GUI()
+    
+    #if len(sys.argv)==1:
+    lat=int(os.environ['O_LAT'])
+    lon=int(os.environ['O_LON'])
+    apt_dep=os.environ['O_APT_DEP']
+    apt_arr=os.environ['O_APT_ARR']
+    #else:
+    #lat=int(sys.argv[1])
+    #    lon=int(sys.argv[2])
+    #    apt_dep=sys.argv[3]
+    #    apt_arr=sys.argv[4]
 
-        Ortho4XP.mainloop()	    
+    tile=CFG.Tile(lat,lon,'')
+
+    tile.apt_dep=apt_dep
+    tile.apt_arr=apt_arr
+
+    try:
+        VMAP.build_poly_file(tile)
+        sys.stdout.flush()
+        MESH.build_mesh(tile)
+        sys.stdout.flush()
+        MASK.build_masks(tile)
+        sys.stdout.flush()
+        TILE.build_tile(tile)
+        sys.stdout.flush()
         print("Bon vol!")
-    else: # sequel is only concerned with command line 
-        if len(sys.argv)<3:
-            print(cmd_line); sys.exit()
-        try:
-            lat=int(sys.argv[1])
-            lon=int(sys.argv[2])
-        except:
-            print(cmd_line); sys.exit()
-        if len(sys.argv)==3:
-            try:
-                tile=CFG.Tile(lat,lon,'')
-            except Exception as e:
-                print(e)
-                print("ERROR: could not read tile config file."); sys.exit()
-        else:
-            try:
-                provider_code=sys.argv[3]
-                zoomlevel=int(sys.argv[4])
-                tile=CFG.Tile(lat,lon,'')
-                tile.default_website=provider_code
-                tile.default_zl=zoomlevel
-            except:
-                print(cmd_line); sys.exit()
-        try:
-            VMAP.build_poly_file(tile)
-            #MESH.build_mesh(tile)
-            #MASK.build_masks(tile)
-            #TILE.build_tile(tile)
-            print("Bon vol!")
-        except:
-            print("Crash!")
+    except:
+        print("Crash!")
  
         

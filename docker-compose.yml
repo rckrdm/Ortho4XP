@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  ortho:
+    build: .
+    volumes:
+      - ./Elevation_data:/app/Elevation_data
+      - ./Masks:/app/Masks
+      - ./Orthophotos:/app/Orthophotos
+      - ./OSM_data:/app/OSM_data
+      - ./Tiles:/app/Tiles

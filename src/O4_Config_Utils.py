@@ -77,7 +77,10 @@ cfg_vars={
     'use_decal_on_terrain':{'type':bool,'default':False,'hint':'Terrain files for all but water triangles will contain the maquify_1_green_key.dcl decal directive. The effect is noticeable at very low altitude and helps to overcome the orthophoto blur at such levels. Can be slightly distracting at higher altitude.'},
     # Other
     'custom_dem':          {'type':str,'default':'','hint':'Path to an elevation data file to be used instead of the default Viewfinderpanoramas.org ones (J. de Ferranti). The raster must be in geopgraphical coordinates (EPSG:4326) but the extent need not match the tile boundary (requires Gdal). Regions of the tile that are not covered by the raster are mapped to zero altitude (can be useful for high resolution data over islands in particular).     '},
-    'fill_nodata':         {'type':bool,'default':True,'hint':'When set, the no_data values in the raster will be filled by a nearest neighbour algorithm. If unset, they are turned into zero (can be useful for rasters with no_data over the whole oceanic part or partial LIDAR data).'}
+    'fill_nodata':         {'type':bool,'default':True,'hint':'When set, the no_data values in the raster will be filled by a nearest neighbour algorithm. If unset, they are turned into zero (can be useful for rasters with no_data over the whole oceanic part or partial LIDAR data).'},
+
+    'apt_dep':     {'type':str,'default':'xxxxx','hint':''},
+    'apt_arr':     {'type':str,'default':'xxxxx','hint':''}
 }
 
 list_app_vars=['verbosity','cleaning_level','overpass_server_choice',
@@ -89,7 +92,7 @@ gui_app_vars_long=list_app_vars[-2:]
 list_vector_vars=['apt_smoothing_pix','road_level','road_banking_limit','lane_width','max_levelled_segs','water_simplification','min_area','max_area','clean_bad_geometries','mesh_zl']
 list_mesh_vars=['curvature_tol','apt_curv_tol','apt_curv_ext','coast_curv_tol','coast_curv_ext','limit_tris','hmin','min_angle','sea_smoothing_mode','water_smoothing','iterate']
 list_mask_vars=['mask_zl','masks_width','masking_mode','use_masks_for_inland','imprint_masks_to_dds','masks_use_DEM_too','masks_custom_extent']
-list_dsf_vars=['cover_airports_with_highres','cover_extent','cover_zl','ratio_water','overlay_lod','sea_texture_blur','add_low_res_sea_ovl','experimental_water','normal_map_strength','terrain_casts_shadows','use_decal_on_terrain']
+list_dsf_vars=['cover_airports_with_highres','cover_extent','cover_zl','ratio_water','overlay_lod','sea_texture_blur','add_low_res_sea_ovl','experimental_water','normal_map_strength','terrain_casts_shadows','use_decal_on_terrain', 'apt_dep', 'apt_arr']
 list_other_vars=['custom_dem','fill_nodata']
 list_tile_vars=list_vector_vars+list_mesh_vars+list_mask_vars+list_dsf_vars+list_other_vars+['default_website','default_zl','zone_list']
 

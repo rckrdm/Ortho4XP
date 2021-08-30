@@ -114,7 +114,17 @@ def zone_list_to_ortho_dico(tile):
                 airports_list=[airport for airport in dico_airports if dico_airports[airport]['key_type']=='icao']
             else:
                 airports_list=dico_airports.keys()
+
+            airports_list = []
+
+            if tile.apt_dep in dico_airports:
+               airports_list.append(tile.apt_dep)
+
+            if tile.apt_arr in dico_airports:
+               airports_list.append(tile.apt_arr)
+
             for airport in airports_list:
+                print("HIGH res airport ", airport)
                 (xmin,ymin,xmax,ymax)=dico_airports[airport]['boundary'].bounds
                 # extension
                 xmin-=1000*tile.cover_extent*GEO.m_to_lon(tile.lat)
